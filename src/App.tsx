@@ -2,7 +2,6 @@ import { Redirect, Route } from "react-router-dom";
 import {
   IonApp,
   IonIcon,
-  IonLabel,
   IonRouterOutlet,
   IonTabBar,
   IonTabButton,
@@ -12,11 +11,8 @@ import {
 import { IonReactRouter } from "@ionic/react-router";
 import {
   calendarOutline,
-  ellipse,
   folderOpenOutline,
   listOutline,
-  square,
-  triangle,
 } from "ionicons/icons";
 import Tab1 from "./pages/Tab1";
 import Tab2 from "./pages/Tab2";

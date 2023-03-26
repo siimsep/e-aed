@@ -12,13 +12,16 @@ import {
   IonIcon,
 } from "@ionic/react";
 import { add } from "ionicons/icons";
+import PlantForm from "./PlantForm";
 
 function PlantModal() {
   const [isOpen, setIsOpen] = useState(false);
-
+  function handleClose() {
+    setIsOpen(false);
+  }
   return (
     <IonContent className="ion-padding">
-      <IonFab slot="fixed" vertical="bottom" horizontal="start">
+      <IonFab slot="fixed" vertical="top" horizontal="start">
         <IonFabButton onClick={() => setIsOpen(true)}>
           <IonIcon icon={add}></IonIcon>
         </IonFabButton>
@@ -32,7 +35,9 @@ function PlantModal() {
             </IonButtons>
           </IonToolbar>
         </IonHeader>
-        <IonContent className="ion-padding"></IonContent>
+        <IonContent className="ion-padding">
+          <PlantForm handleClose={handleClose} />
+        </IonContent>
       </IonModal>
     </IonContent>
   );

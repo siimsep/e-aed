@@ -4,10 +4,15 @@
   "private": true,
   "dependencies": {
     "@capacitor/app": "4.1.1",
+    "@capacitor/camera": "^4.1.4",
     "@capacitor/core": "4.7.1",
+    "@capacitor/filesystem": "^4.1.4",
     "@capacitor/haptics": "4.1.0",
     "@capacitor/keyboard": "4.1.1",
+    "@capacitor/preferences": "^4.0.2",
     "@capacitor/status-bar": "4.1.1",
+    "@firebase/app": "^0.9.5",
+    "@ionic/pwa-elements": "^3.1.1",
     "@ionic/react": "^6.0.0",
     "@ionic/react-router": "^6.0.0",
     "@testing-library/jest-dom": "^5.11.9",
@@ -19,10 +24,13 @@
     "@types/react-dom": "^18.0.6",
     "@types/react-router": "^5.1.11",
     "@types/react-router-dom": "^5.1.7",
+    "firebase": "^9.18.0",
     "history": "^4.9.0",
     "ionicons": "^6.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-firebase-hooks": "^5.1.1",
+    "react-hook-form": "^7.43.8",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^5.0.0",
@@ -62,7 +70,8 @@
     "iOS >=13"
   ],
   "devDependencies": {
-    "@capacitor/cli": "4.7.1"
+    "@capacitor/cli": "4.7.1",
+    "@types/firebase": "^3.2.1"
   },
   "description": "An Ionic project"
 }

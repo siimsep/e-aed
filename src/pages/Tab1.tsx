@@ -5,7 +5,7 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import ExploreContainer from "../components/ExploreContainer";
+import PlantList from "../components/PlantList";
 import PlantModal from "../components/PlantModal";
 import "./Tab1.css";
 
@@ -23,7 +23,7 @@ const Tab1: React.FC = () => {
             <IonTitle size="large">Taimed</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <ExploreContainer name="Tab 1 page" />
+        <PlantList />
         <PlantModal />
       </IonContent>
     </IonPage>
