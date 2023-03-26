@@ -13,11 +13,10 @@ import { collection, getDocs, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import db from "../firebase";
+//import PlantModal from "./PlantModal";
 //import { usePhotoGallery } from "../hooks/usePhotoGallery";
-interface PlantFormProps {
-  handleClose: () => void;
-}
-function PlantForm({ handleClose }: PlantFormProps) {
+
+function PlantForm() {
   /*const { takePhoto } = usePhotoGallery();
     <IonFabButton onClick={() => takePhoto()}>
         <IonIcon icon={camera}></IonIcon>
@@ -91,9 +90,7 @@ function PlantForm({ handleClose }: PlantFormProps) {
           />
         </IonItem>
         <div>
-          <IonButton type="submit" onClick={handleClose}>
-            Salvesta
-          </IonButton>
+          <IonButton type="submit">Salvesta</IonButton>
         </div>
       </form>
     </IonContent>
