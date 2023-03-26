@@ -1,15 +1,10 @@
-import { useState, useEffect } from "react";
-import { isPlatform } from "@ionic/react";
+import { useState } from "react";
+//import { isPlatform } from "@ionic/react";
 
-import {
-  Camera,
-  CameraResultType,
-  CameraSource,
-  Photo,
-} from "@capacitor/camera";
-import { Filesystem, Directory } from "@capacitor/filesystem";
-import { Preferences } from "@capacitor/preferences";
-import { Capacitor } from "@capacitor/core";
+import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
+//import { Filesystem, Directory } from "@capacitor/filesystem";
+//import { Preferences } from "@capacitor/preferences";
+//import { Capacitor } from "@capacitor/core";
 export interface UserPhoto {
   filepath: string;
   webviewPath?: string;

@@ -1,45 +1,28 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   IonButton,
   IonContent,
-  IonFabButton,
-  IonIcon,
   IonInput,
   IonItem,
   IonLabel,
-  IonList,
   IonSelect,
   IonSelectOption,
-  IonText,
 } from "@ionic/react";
-import {
-  addDoc,
-  collection,
-  doc,
-  getDocs,
-  query,
-  setDoc,
-} from "firebase/firestore";
-import { camera } from "ionicons/icons";
+import { collection, getDocs, query } from "firebase/firestore";
+//import { camera } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import db from "../firebase";
-import { usePhotoGallery } from "../hooks/usePhotoGallery";
+//import { usePhotoGallery } from "../hooks/usePhotoGallery";
 interface PlantFormProps {
   handleClose: () => void;
 }
 function PlantForm({ handleClose }: PlantFormProps) {
-  const { takePhoto } = usePhotoGallery();
-  /*  <IonFabButton onClick={() => takePhoto()}>
+  /*const { takePhoto } = usePhotoGallery();
+    <IonFabButton onClick={() => takePhoto()}>
         <IonIcon icon={camera}></IonIcon>
       </IonFabButton> */
-  const {
-    handleSubmit,
-    control,
-    setValue,
-    register,
-    getValues,
-    formState: { errors },
-  } = useForm({
+  const { handleSubmit, control, setValue, register } = useForm({
     defaultValues: {
       name: "",
       date: "",
@@ -65,7 +48,6 @@ function PlantForm({ handleClose }: PlantFormProps) {
   const onSubmit = async (data: any) => {
     try {
       const ref = await collection(db, "Plants");
-      const newDoc = await addDoc(ref, data);
     } catch (error) {
       console.error("Error adding document: ", error);
     }
