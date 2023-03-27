@@ -36,6 +36,7 @@ import "@ionic/react/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
+import PlantDetailPage from "./pages/PlantDetailPage";
 
 setupIonicReact();
 
@@ -44,9 +45,9 @@ const App: React.FC = () => (
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
-          <Route exact path="/tab1">
-            <Tab1 />
-          </Route>
+          <Route exact path="/tab1" component={Tab1} />
+          <Route path="/tab1/:id" component={PlantDetailPage} />
+          <Tab1 />
           <Route exact path="/tab2">
             <Tab2 />
           </Route>
