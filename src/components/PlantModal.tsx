@@ -24,6 +24,8 @@ import { useForm, Controller } from "react-hook-form";
 import db from "../firebase";
 
 function PlantModal() {
+  const [date, setDate] = useState(new Date());
+
   const [isOpen, setIsOpen] = useState(false);
   /*const { takePhoto } = usePhotoGallery();
     <IonFabButton onClick={() => takePhoto()}>
@@ -93,7 +95,12 @@ function PlantModal() {
               </IonItem>
               <IonItem>
                 <IonLabel position="floating">Istutamise kuupäev</IonLabel>
-                <IonInput {...register("date", {})} />
+                <IonInput
+                  value={date.toISOString().substring(0, 10)}
+                  type="date"
+                  placeholder="none"
+                  {...register("date", {})}
+                />
               </IonItem>
               <IonItem>
                 <Controller

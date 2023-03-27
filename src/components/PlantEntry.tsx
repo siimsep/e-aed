@@ -24,6 +24,7 @@ interface ParamsId {
   plantId: string;
 }
 const PlantEntry: React.FC<ParamsId> = ({ plantId }) => {
+  const [date, setDate] = useState(new Date());
   const [isOpen, setIsOpen] = useState(false);
   /*const { takePhoto } = usePhotoGallery();
     <IonFabButton onClick={() => takePhoto()}>
@@ -69,7 +70,12 @@ const PlantEntry: React.FC<ParamsId> = ({ plantId }) => {
               </IonItem>
               <IonItem>
                 <IonLabel position="floating">Kuupäev</IonLabel>
-                <IonInput {...register("date", {})} />
+                <IonInput
+                  value={date.toISOString().substring(0, 10)}
+                  type="date"
+                  placeholder="none"
+                  {...register("date", {})}
+                />
               </IonItem>
               <div>
                 <IonButton type="submit" onClick={() => setIsOpen(false)}>
