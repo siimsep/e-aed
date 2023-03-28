@@ -2,6 +2,7 @@ import { useState } from "react";
 //import { isPlatform } from "@ionic/react";
 
 import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
+import uploadPhoto from "./uploadPhoto";
 //import { Filesystem, Directory } from "@capacitor/filesystem";
 //import { Preferences } from "@capacitor/preferences";
 //import { Capacitor } from "@capacitor/core";
@@ -10,7 +11,7 @@ export interface UserPhoto {
   webviewPath?: string;
 }
 export function usePhotoGallery() {
-  const [photos, setPhotos] = useState<UserPhoto[]>([]);
+  const [photos, setPhotos] = useState<string>();
 
   const takePhoto = async () => {
     const photo = await Camera.getPhoto({
@@ -19,14 +20,12 @@ export function usePhotoGallery() {
       quality: 100,
     });
     const fileName = new Date().getTime() + ".jpeg";
-    const newPhotos = [
-      {
-        filepath: fileName,
-        webviewPath: photo.webPath,
-      },
-      ...photos,
-    ];
-    setPhotos(newPhotos);
+    setPhotos(fileName);
+    try {
+      uploadPhoto(fileName);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return {

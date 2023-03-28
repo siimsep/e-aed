@@ -13,6 +13,7 @@ const uploadPhoto = async (photo: string): Promise<string | null> => {
 
     // Get the download URL for the file
     const url = await getDownloadURL(storageRef);
+    console.log("success??");
     return url;
   } catch (error) {
     console.error(error);
