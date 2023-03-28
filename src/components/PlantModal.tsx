@@ -17,20 +17,23 @@ import {
   IonSelect,
   IonSelectOption,
 } from "@ionic/react";
-import { add } from "ionicons/icons";
+import { add, camera } from "ionicons/icons";
 //import PlantForm from "./PlantForm";
 import { query, collection, getDocs, addDoc } from "firebase/firestore";
 import { useForm, Controller } from "react-hook-form";
 import db from "../firebase";
+import { usePhotoGallery } from "../hooks/usePhotoGallery";
 
 function PlantModal() {
   const [date, setDate] = useState(new Date());
 
   const [isOpen, setIsOpen] = useState(false);
-  /*const { takePhoto } = usePhotoGallery();
-    <IonFabButton onClick={() => takePhoto()}>
-        <IonIcon icon={camera}></IonIcon>
-      </IonFabButton> */
+  const { takePhoto } = usePhotoGallery();
+  {
+    /* <IonFabButton onClick={() => takePhoto()}>
+    <IonIcon icon={camera}></IonIcon>
+  </IonFabButton>; */
+  }
   const { handleSubmit, control, setValue, register } = useForm({
     defaultValues: {
       name: "",
@@ -126,6 +129,9 @@ function PlantModal() {
                   Salvesta
                 </IonButton>
               </div>
+              <IonFabButton onClick={() => takePhoto()}>
+                <IonIcon icon={camera}></IonIcon>
+              </IonFabButton>
             </form>
           </IonContent>
         </IonContent>

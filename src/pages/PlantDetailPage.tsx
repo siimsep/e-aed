@@ -15,7 +15,6 @@ import { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import PlantEntry from "../components/PlantEntry";
 import EntryCard from "../components/EntryCard";
-//import EntryCard from "../components/EntryCard";
 interface ParamsId
   extends RouteComponentProps<{
     id: string;
