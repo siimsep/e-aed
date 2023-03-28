@@ -29,11 +29,7 @@ function PlantModal() {
 
   const [isOpen, setIsOpen] = useState(false);
   const { takePhoto } = usePhotoGallery();
-  {
-    /* <IonFabButton onClick={() => takePhoto()}>
-    <IonIcon icon={camera}></IonIcon>
-  </IonFabButton>; */
-  }
+
   const { handleSubmit, control, setValue, register } = useForm({
     defaultValues: {
       name: "",
