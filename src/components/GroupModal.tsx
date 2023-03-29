@@ -10,6 +10,10 @@ import {
   IonFabButton,
   IonIcon,
   IonInput,
+  IonTitle,
+  IonLabel,
+  IonItem,
+  useIonToast,
 } from "@ionic/react";
 import { add } from "ionicons/icons";
 import { addDoc, collection } from "firebase/firestore";
@@ -31,23 +35,35 @@ function GroupModal() {
       ionInputEl.value = input;
     }
   };
+  const [present] = useIonToast();
+
+  const presentToast = (position: "top" | "middle" | "bottom") => {
+    present({
+      message: "Peenar ilusti salvestatud!",
+      duration: 1500,
+      position: position,
+    });
+  };
+
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
       const peenraRef = collection(db, "Peenrad");
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const newPeenraDoc = await addDoc(peenraRef, {
         peenraNimi: modelValue,
       });
-      console.log("Document written with ID: ", newPeenraDoc.id);
+      presentToast("bottom");
+      //console.log("Document written with ID: ", newPeenraDoc.id);
       setModelValue("");
     } catch (error) {
-      console.error("Error adding document: ", error);
+      //console.error("Error adding document: ", error);
     }
   };
 
   return (
-    <IonContent className="ion-padding">
-      <IonFab vertical="top" horizontal="start">
+    <IonContent>
+      <IonFab vertical="bottom" horizontal="start">
         <IonFabButton onClick={() => setIsOpen(true)}>
           <IonIcon icon={add}></IonIcon>
         </IonFabButton>
@@ -55,22 +71,38 @@ function GroupModal() {
       <IonModal isOpen={isOpen}>
         <IonHeader>
           <IonToolbar>
-            <form onSubmit={handleFormSubmit}>
+            {" "}
+            <IonTitle>Lisa uus peenar</IonTitle>
+            <IonButtons slot="end">
+              <IonButton
+                onClick={() => {
+                  setIsOpen(false);
+                  setModelValue("");
+                }}
+              >
+                KATKESTA
+              </IonButton>
+            </IonButtons>
+          </IonToolbar>
+        </IonHeader>
+        <IonContent className="ion-padding">
+          <form onSubmit={handleFormSubmit}>
+            <IonItem>
+              <IonLabel position="floating">Peenra nimi</IonLabel>
               <IonInput
-                placeholder="Sisesta peenra nimi"
                 ref={inputEl}
                 value={modelValue}
                 onIonInput={(e: any) => handleIonInputChange(e.target.value)}
               ></IonInput>
-              <IonButton type="submit" onClick={() => setIsOpen(false)}>
-                Salvesta
-              </IonButton>
-            </form>
-            <IonButtons slot="end">
-              <IonButton onClick={() => setIsOpen(false)}>Katkesta</IonButton>
-            </IonButtons>
-          </IonToolbar>
-        </IonHeader>
+            </IonItem>
+            <IonButton type="submit" onClick={() => setIsOpen(false)}>
+              Salvesta
+            </IonButton>
+          </form>
+          <IonButtons slot="end">
+            <IonButton onClick={() => setIsOpen(false)}>Katkesta</IonButton>
+          </IonButtons>
+        </IonContent>
       </IonModal>
     </IonContent>
   );

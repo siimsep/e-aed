@@ -1,5 +1,5 @@
 import db from "../firebase";
-import { collection, query, onSnapshot } from "firebase/firestore";
+import { collection, query, onSnapshot, orderBy } from "firebase/firestore";
 import { IonList, IonItem } from "@ionic/react";
 import { useEffect, useState } from "react";
 
@@ -7,7 +7,7 @@ const PlantList = () => {
   const [plantNameArray, setPlantArray] = useState<any[]>([]);
   useEffect(() => {
     const unsubscribe = onSnapshot(
-      query(collection(db, "Plants")),
+      query(collection(db, "Plants"), orderBy("name")),
       (querySnapshot) => {
         const tempArray: any[] = [];
         querySnapshot.forEach((doc) => {

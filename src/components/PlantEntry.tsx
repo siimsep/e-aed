@@ -14,6 +14,7 @@ import {
   IonInput,
   IonItem,
   IonLabel,
+  IonTextarea,
 } from "@ionic/react";
 import { add } from "ionicons/icons";
 //import PlantForm from "./PlantForm";
@@ -30,17 +31,20 @@ const PlantEntry: React.FC<ParamsId> = ({ plantId }) => {
     <IonFabButton onClick={() => takePhoto()}>
         <IonIcon icon={camera}></IonIcon>
       </IonFabButton> */
-  const { handleSubmit, control, setValue, register } = useForm({
+  const { handleSubmit, control, setValue, register, reset } = useForm({
     defaultValues: {
-      date: "",
+      date: date.toISOString().substring(0, 10),
       content: "",
       plantId: plantId,
     },
   });
   const onSubmit = async (data: any) => {
     try {
+      const tempt = new Date(data.date);
+      data.date = tempt;
       const ref = await collection(db, "Entries");
       const newPlantEntry = await addDoc(ref, data);
+      reset();
     } catch (error) {
       console.error("Error adding document: ", error);
     }
@@ -57,33 +61,38 @@ const PlantEntry: React.FC<ParamsId> = ({ plantId }) => {
           <IonToolbar>
             <IonTitle>Lisa uus sissekanne</IonTitle>
             <IonButtons slot="end">
-              <IonButton onClick={() => setIsOpen(false)}>KATKESTA</IonButton>
+              <IonButton
+                onClick={() => {
+                  setIsOpen(false);
+                  reset();
+                }}
+              >
+                KATKESTA
+              </IonButton>
             </IonButtons>
           </IonToolbar>
         </IonHeader>
         <IonContent className="ion-padding">
-          <IonContent className="ion-padding">
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <IonItem>
-                <IonLabel position="floating">Sisu</IonLabel>
-                <IonInput {...register("content", {})} />
-              </IonItem>
-              <IonItem>
-                <IonLabel position="floating">Kuupäev</IonLabel>
-                <IonInput
-                  value={date.toISOString().substring(0, 10)}
-                  type="date"
-                  placeholder="none"
-                  {...register("date", {})}
-                />
-              </IonItem>
-              <div>
-                <IonButton type="submit" onClick={() => setIsOpen(false)}>
-                  Salvesta
-                </IonButton>
-              </div>
-            </form>
-          </IonContent>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <IonItem>
+              <IonLabel position="floating">Sisu</IonLabel>
+              <IonTextarea autoGrow={true} {...register("content", {})} />
+            </IonItem>
+            <IonItem>
+              <IonLabel position="floating">Kuupäev</IonLabel>
+              <IonInput
+                value={date.toISOString().substring(0, 10)}
+                type="date"
+                placeholder="none"
+                {...register("date", {})}
+              />
+            </IonItem>
+            <div>
+              <IonButton type="submit" onClick={() => setIsOpen(false)}>
+                Salvesta
+              </IonButton>
+            </div>
+          </form>
         </IonContent>
       </IonModal>
     </IonContent>

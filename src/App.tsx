@@ -9,11 +9,7 @@ import {
   setupIonicReact,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import {
-  calendarOutline,
-  folderOpenOutline,
-  listOutline,
-} from "ionicons/icons";
+import { calendarOutline, locationOutline, roseOutline } from "ionicons/icons";
 import Tab1 from "./pages/Tab1";
 import Tab2 from "./pages/Tab2";
 import Tab3 from "./pages/Tab3";
@@ -60,10 +56,10 @@ const App: React.FC = () => (
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
           <IonTabButton tab="tab1" href="/tab1">
-            <IonIcon aria-hidden="true" icon={listOutline} />
+            <IonIcon aria-hidden="true" icon={roseOutline} />
           </IonTabButton>
           <IonTabButton tab="tab2" href="/tab2">
-            <IonIcon aria-hidden="true" icon={folderOpenOutline} />
+            <IonIcon aria-hidden="true" icon={locationOutline} />
           </IonTabButton>
           <IonTabButton tab="tab3" href="/tab3">
             <IonIcon aria-hidden="true" icon={calendarOutline} />

@@ -1,6 +1,12 @@
 import db from "../firebase";
-import { collection, query, onSnapshot } from "firebase/firestore";
-import { IonList, IonItem } from "@ionic/react";
+import { collection, query, onSnapshot, orderBy } from "firebase/firestore";
+import {
+  IonList,
+  IonItem,
+  IonAccordion,
+  IonLabel,
+  IonAccordionGroup,
+} from "@ionic/react";
 import { useEffect, useState } from "react";
 
 const GroupList = () => {
@@ -8,7 +14,7 @@ const GroupList = () => {
 
   useEffect(() => {
     const unsubscribe = onSnapshot(
-      query(collection(db, "Peenrad")),
+      query(collection(db, "Peenrad"), orderBy("peenraNimi")),
       (querySnapshot) => {
         const tempArray: string[] = [];
         querySnapshot.forEach((doc) => {
@@ -21,11 +27,18 @@ const GroupList = () => {
     return unsubscribe;
   }, []);
   return (
-    <IonList>
+    <IonAccordionGroup>
       {peenraNimiArray.map((peenraNimi) => (
-        <IonItem key={peenraNimi}>{peenraNimi}</IonItem>
+        <IonAccordion key={peenraNimi} value={peenraNimi}>
+          <IonItem slot="header" color="light">
+            <IonLabel>{peenraNimi}</IonLabel>
+          </IonItem>
+          <div className="ion-padding" slot="content">
+            Siia tulevad taimed
+          </div>
+        </IonAccordion>
       ))}
-    </IonList>
+    </IonAccordionGroup>
   );
 };
 export default GroupList;
