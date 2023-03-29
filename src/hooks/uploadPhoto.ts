@@ -1,5 +1,4 @@
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
-import { useState } from "react";
 import { storage } from "../firebase";
 
 const UploadPhoto = async (photo: any): Promise<string | null> => {

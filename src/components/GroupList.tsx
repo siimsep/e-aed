@@ -1,7 +1,6 @@
 import db from "../firebase";
 import { collection, query, onSnapshot, orderBy } from "firebase/firestore";
 import {
-  IonList,
   IonItem,
   IonAccordion,
   IonLabel,
