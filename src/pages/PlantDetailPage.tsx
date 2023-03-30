@@ -6,6 +6,7 @@ import {
   IonFabList,
   IonHeader,
   IonIcon,
+  IonImg,
   IonItem,
   IonPage,
   IonText,
@@ -33,6 +34,7 @@ interface Plant {
   name: string;
   description: string;
   date: string;
+  photoUrl: string;
 }
 const PlantDetailPage: React.FC<ParamsId> = ({ match }) => {
   const plantId: string = match.params.id;
@@ -40,6 +42,7 @@ const PlantDetailPage: React.FC<ParamsId> = ({ match }) => {
     name: "",
     description: "",
     date: "",
+    photoUrl: "",
   });
   //
   //	Initializing our router
@@ -65,6 +68,7 @@ const PlantDetailPage: React.FC<ParamsId> = ({ match }) => {
           name: docSnap.data().name,
           description: docSnap.data().description,
           date: date,
+          photoUrl: docSnap.data().photoUrl,
         };
         setModelValue(plant);
       } else {
@@ -109,6 +113,9 @@ const PlantDetailPage: React.FC<ParamsId> = ({ match }) => {
         <IonText>Istutatud: {plant.date}</IonText>
       </IonItem>
       <IonItem>{plant.description}</IonItem>
+      <IonItem>
+        <IonImg src={plant.photoUrl}></IonImg>
+      </IonItem>
       <IonItem>
         <IonIcon size="large" icon={imageOutline}></IonIcon>
         <IonIcon size="large" icon={imageOutline}></IonIcon>

@@ -35,8 +35,8 @@ function GroupModal() {
       ionInputEl.value = input;
     }
   };
-  const [present] = useIonToast();
 
+  const [present] = useIonToast();
   const presentToast = (position: "top" | "middle" | "bottom") => {
     present({
       message: "Peenar ilusti salvestatud!",

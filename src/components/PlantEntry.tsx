@@ -51,7 +51,7 @@ const PlantEntry: React.FC<ParamsId> = ({ plantId }) => {
   };
   return (
     <IonContent className="ion-padding">
-      <IonFab slot="fixed" vertical="top" horizontal="start">
+      <IonFab slot="fixed" vertical="bottom" horizontal="start">
         <IonFabButton onClick={() => setIsOpen(true)}>
           <IonIcon icon={add}></IonIcon>
         </IonFabButton>

@@ -19,15 +19,14 @@ import {
   useIonToast,
 } from "@ionic/react";
 import { add, camera } from "ionicons/icons";
-//import PlantForm from "./PlantForm";
 import { query, collection, getDocs, addDoc } from "firebase/firestore";
 import { useForm, Controller } from "react-hook-form";
 import db from "../firebase";
-import usePhotoGallery from "../hooks/usePhotoGallery";
+import PhotoGallery from "../hooks/usePhotoGallery";
 function PlantModal() {
   const [date, setDate] = useState(new Date());
   const [isOpen, setIsOpen] = useState(false);
-  const { takePhoto } = usePhotoGallery();
+  //const { takePhoto } = usePhotoGallery();
   const { handleSubmit, control, setValue, register, reset } = useForm({
     defaultValues: {
       name: "",
@@ -60,7 +59,12 @@ function PlantModal() {
     fetchPeenraNimiArray();
   }, []);
   //const [photoUrl, setPhotoUrl] = useState<string>();
-
+  const handleButtonClick = async () => {
+    const str: any = await PhotoGallery();
+    console.log("inside handlebuttonclick", str);
+    // Set the value of the form input with the generated string
+    setValue("photoUrl", str);
+  };
   const onSubmit = async (data: any) => {
     try {
       //data.photoUrl = photoUrl;
@@ -108,7 +112,7 @@ function PlantModal() {
                 })}
               />
             </IonItem>
-            <IonFabButton disabled size="small" onClick={() => takePhoto()}>
+            <IonFabButton size="small" onClick={() => handleButtonClick()}>
               <IonIcon icon={camera}></IonIcon>
             </IonFabButton>
             <IonItem>
