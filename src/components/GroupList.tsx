@@ -5,6 +5,7 @@ import {
   IonAccordion,
   IonLabel,
   IonAccordionGroup,
+  IonText,
 } from "@ionic/react";
 import { useEffect, useState } from "react";
 
@@ -61,6 +62,7 @@ const GroupList = () => {
                   </IonItem>
                 );
               }
+              return null;
             })}
           </div>
         </IonAccordion>
