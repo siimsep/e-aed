@@ -5,7 +5,6 @@ import {
   IonAccordion,
   IonLabel,
   IonAccordionGroup,
-  IonText,
 } from "@ionic/react";
 import { useEffect, useState } from "react";
 
