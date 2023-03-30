@@ -1,0 +1,2 @@
+- Ionic React
+- Firebase Firestore
