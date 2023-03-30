@@ -1,7 +1,6 @@
 import {
   IonBackButton,
   IonButtons,
-  IonContent,
   IonFab,
   IonFabButton,
   IonFabList,
@@ -18,7 +17,12 @@ import { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import PlantEntry from "../components/PlantEntry";
 import EntryCard from "../components/EntryCard";
-import { buildOutline, ellipsisVertical, trash } from "ionicons/icons";
+import {
+  buildOutline,
+  ellipsisVertical,
+  imageOutline,
+  trash,
+} from "ionicons/icons";
 import DeletePlant from "../hooks/deletePlant";
 import { useIonRouter } from "@ionic/react";
 interface ParamsId
@@ -74,7 +78,7 @@ const PlantDetailPage: React.FC<ParamsId> = ({ match }) => {
   return (
     <IonPage>
       <IonFab vertical="top" horizontal="end">
-        <IonFabButton size="small" onClick={() => console.log("click")}>
+        <IonFabButton size="small">
           <IonIcon icon={ellipsisVertical}></IonIcon>
         </IonFabButton>
         <IonFabList side="bottom">
@@ -98,15 +102,21 @@ const PlantDetailPage: React.FC<ParamsId> = ({ match }) => {
           </IonButtons>
         </IonToolbar>
       </IonHeader>
-      <IonContent className="ion-padding">
+      <IonItem>
         <h2>{plant.name}</h2>
-        <IonItem>
-          <IonText>Istutatud: {plant.date}</IonText>
-        </IonItem>
-        <IonItem>{plant.description}</IonItem>
-        <EntryCard plantId={plantId} />
-        <PlantEntry plantId={plantId} />
-      </IonContent>
+      </IonItem>
+      <IonItem>
+        <IonText>Istutatud: {plant.date}</IonText>
+      </IonItem>
+      <IonItem>{plant.description}</IonItem>
+      <IonItem>
+        <IonIcon size="large" icon={imageOutline}></IonIcon>
+        <IonIcon size="large" icon={imageOutline}></IonIcon>
+        <IonIcon size="large" icon={imageOutline}></IonIcon>
+        <IonIcon size="large" icon={imageOutline}></IonIcon>
+      </IonItem>
+      <EntryCard plantId={plantId} />
+      <PlantEntry plantId={plantId} />
     </IonPage>
   );
 };

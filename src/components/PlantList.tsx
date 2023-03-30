@@ -1,6 +1,6 @@
 import db from "../firebase";
 import { collection, query, onSnapshot, orderBy } from "firebase/firestore";
-import { IonList, IonItem } from "@ionic/react";
+import { IonList, IonItem, IonSearchbar, IonToolbar } from "@ionic/react";
 import { useEffect, useState } from "react";
 
 const PlantList = () => {
@@ -21,13 +21,22 @@ const PlantList = () => {
   }, []);
 
   return (
-    <IonList>
-      {plantNameArray.map((item) => (
-        <IonItem href={`/tab1/${item.id}`} key={item.name}>
-          {item.name}
-        </IonItem>
-      ))}
-    </IonList>
+    <>
+      <IonToolbar>
+        <IonSearchbar
+          animated={true}
+          placeholder="Otsi taime"
+          showClearButton="focus"
+        ></IonSearchbar>
+      </IonToolbar>
+      <IonList>
+        {plantNameArray.map((item) => (
+          <IonItem href={`/tab1/${item.id}`} key={item.name}>
+            {item.name}
+          </IonItem>
+        ))}
+      </IonList>
+    </>
   );
 };
 export default PlantList;
