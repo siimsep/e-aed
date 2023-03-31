@@ -1,4 +1,5 @@
-import { useRef, useState } from "react";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useState } from "react";
 import {
   IonButtons,
   IonButton,
@@ -6,64 +7,60 @@ import {
   IonHeader,
   IonContent,
   IonToolbar,
+  IonTitle,
   IonFab,
   IonFabButton,
   IonIcon,
   IonInput,
-  IonTitle,
-  IonLabel,
   IonItem,
+  IonLabel,
   useIonToast,
 } from "@ionic/react";
-import { add } from "ionicons/icons";
-import { addDoc, collection } from "firebase/firestore";
+import { add, camera } from "ionicons/icons";
+import { collection, addDoc } from "firebase/firestore";
+import { useForm } from "react-hook-form";
 import db from "../firebase";
-
+import PhotoGallery from "../hooks/usePhotoGallery";
 function GroupModal() {
+  const [date, setDate] = useState(new Date());
   const [isOpen, setIsOpen] = useState(false);
-
-  const [modelValue, setModelValue] = useState("");
-  const inputEl = useRef<HTMLIonInputElement>(null);
-
-  const handleIonInputChange = async (val: any) => {
-    const input = val;
-
-    setModelValue(input);
-
-    const ionInputEl = inputEl.current;
-    if (ionInputEl) {
-      ionInputEl.value = input;
-    }
-  };
-
+  const { handleSubmit, control, setValue, register, reset } = useForm({
+    defaultValues: {
+      peenraNimi: "",
+      date: date.toISOString().substring(0, 10),
+      description: "",
+      photoUrl: "",
+    },
+  });
   const [present] = useIonToast();
   const presentToast = (position: "top" | "middle" | "bottom") => {
     present({
       message: "Peenar ilusti salvestatud!",
-      duration: 1500,
+      duration: 2000,
       position: position,
     });
   };
 
-  const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleButtonClick = async () => {
+    const str: any = await PhotoGallery();
+    console.log("inside handlebuttonclick", str);
+    setValue("photoUrl", str);
+  };
+  const onSubmit = async (data: any) => {
     try {
-      const peenraRef = collection(db, "Peenrad");
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const newPeenraDoc = await addDoc(peenraRef, {
-        peenraNimi: modelValue,
-      });
+      const tempt = new Date(data.date);
+      data.date = tempt;
+      const ref = await collection(db, "Peenrad");
+      const newPlant = await addDoc(ref, data);
+      reset();
       presentToast("bottom");
-      //console.log("Document written with ID: ", newPeenraDoc.id);
-      setModelValue("");
     } catch (error) {
-      //console.error("Error adding document: ", error);
+      console.error("Error adding document: ", error);
     }
   };
-
   return (
-    <IonContent>
-      <IonFab vertical="bottom" horizontal="start">
+    <IonContent className="ion-padding">
+      <IonFab slot="fixed" vertical="bottom" horizontal="start">
         <IonFabButton onClick={() => setIsOpen(true)}>
           <IonIcon icon={add}></IonIcon>
         </IonFabButton>
@@ -71,13 +68,12 @@ function GroupModal() {
       <IonModal isOpen={isOpen}>
         <IonHeader>
           <IonToolbar>
-            {" "}
             <IonTitle>Lisa uus peenar</IonTitle>
             <IonButtons slot="end">
               <IonButton
                 onClick={() => {
                   setIsOpen(false);
-                  setModelValue("");
+                  reset();
                 }}
               >
                 KATKESTA
@@ -86,22 +82,38 @@ function GroupModal() {
           </IonToolbar>
         </IonHeader>
         <IonContent className="ion-padding">
-          <form onSubmit={handleFormSubmit}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <IonItem>
-              <IonLabel position="floating">Peenra nimi</IonLabel>
+              <IonLabel position="floating">Nimi</IonLabel>
               <IonInput
-                ref={inputEl}
-                value={modelValue}
-                onIonInput={(e: any) => handleIonInputChange(e.target.value)}
-              ></IonInput>
+                {...register("peenraNimi", {
+                  required: "Sisesta midagi",
+                })}
+              />
             </IonItem>
-            <IonButton type="submit" onClick={() => setIsOpen(false)}>
-              Salvesta
-            </IonButton>
+            <IonFabButton size="small" onClick={() => handleButtonClick()}>
+              <IonIcon icon={camera}></IonIcon>
+            </IonFabButton>
+            <IonItem>
+              <IonLabel position="floating">Lisainfo</IonLabel>
+              <IonInput {...register("description", {})} />
+            </IonItem>
+            <IonItem>
+              <IonLabel position="floating">Kuupäev</IonLabel>
+              <IonInput
+                value={date.toISOString().substring(0, 10)}
+                type="date"
+                placeholder="none"
+                {...register("date", {})}
+              />
+            </IonItem>
+
+            <div>
+              <IonButton type="submit" onClick={() => setIsOpen(false)}>
+                Salvesta
+              </IonButton>
+            </div>
           </form>
-          <IonButtons slot="end">
-            <IonButton onClick={() => setIsOpen(false)}>Katkesta</IonButton>
-          </IonButtons>
         </IonContent>
       </IonModal>
     </IonContent>

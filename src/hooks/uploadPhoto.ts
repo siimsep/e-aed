@@ -1,7 +1,7 @@
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { storage } from "../firebase";
 
-const UploadPhoto = async (photo: any): Promise<string | null> => {
+const UploadPhoto = async (photo: Blob): Promise<string | null> => {
   try {
     // Create a reference to the location where we'll store the file
     const storageRef = ref(storage, "photos/" + Date.now() + ".jpeg");

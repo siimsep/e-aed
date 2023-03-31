@@ -50,7 +50,7 @@ const PlantEntry: React.FC<ParamsId> = ({ plantId }) => {
     }
   };
   return (
-    <IonContent className="ion-padding">
+    <>
       <IonFab slot="fixed" vertical="bottom" horizontal="start">
         <IonFabButton onClick={() => setIsOpen(true)}>
           <IonIcon icon={add}></IonIcon>
@@ -95,7 +95,7 @@ const PlantEntry: React.FC<ParamsId> = ({ plantId }) => {
           </form>
         </IonContent>
       </IonModal>
-    </IonContent>
+    </>
   );
 };
 

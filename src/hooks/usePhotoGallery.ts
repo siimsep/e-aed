@@ -25,7 +25,7 @@ export default function PhotoGallery() {
       const photo = await Camera.getPhoto({
         resultType: CameraResultType.Uri,
         source: CameraSource.Camera,
-        quality: 100,
+        quality: 50,
       });
       const fileName = new Date().getTime() + ".jpeg";
       // eslint-disable-next-line @typescript-eslint/no-unused-vars

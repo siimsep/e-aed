@@ -1,6 +1,7 @@
 import {
   IonBackButton,
   IonButtons,
+  IonContent,
   IonFab,
   IonFabButton,
   IonFabList,
@@ -18,14 +19,11 @@ import { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import PlantEntry from "../components/PlantEntry";
 import EntryCard from "../components/EntryCard";
-import {
-  buildOutline,
-  ellipsisVertical,
-  imageOutline,
-  trash,
-} from "ionicons/icons";
+import { buildOutline, ellipsisVertical, trash } from "ionicons/icons";
 import DeletePlant from "../hooks/deletePlant";
 import { useIonRouter } from "@ionic/react";
+import PlantImg from "../components/PlantImg";
+import PlantDescription from "../components/PlantDescription";
 interface ParamsId
   extends RouteComponentProps<{
     id: string;
@@ -106,24 +104,18 @@ const PlantDetailPage: React.FC<ParamsId> = ({ match }) => {
           </IonButtons>
         </IonToolbar>
       </IonHeader>
-      <IonItem>
-        <h2>{plant.name}</h2>
-      </IonItem>
-      <IonItem>
-        <IonText>Istutatud: {plant.date}</IonText>
-      </IonItem>
-      <IonItem>{plant.description}</IonItem>
-      <IonItem>
-        <IonImg src={plant.photoUrl}></IonImg>
-      </IonItem>
-      <IonItem>
-        <IonIcon size="large" icon={imageOutline}></IonIcon>
-        <IonIcon size="large" icon={imageOutline}></IonIcon>
-        <IonIcon size="large" icon={imageOutline}></IonIcon>
-        <IonIcon size="large" icon={imageOutline}></IonIcon>
-      </IonItem>
-      <EntryCard plantId={plantId} />
-      <PlantEntry plantId={plantId} />
+      <IonContent>
+        <PlantEntry plantId={plantId} />
+        <IonItem>
+          <h2>{plant.name}</h2>
+        </IonItem>
+        <IonItem>
+          <IonText>Istutatud: {plant.date}</IonText>
+        </IonItem>
+        <PlantDescription description={plant.description} />
+        <PlantImg photoUrl={plant.photoUrl} />
+        <EntryCard plantId={plantId} />
+      </IonContent>
     </IonPage>
   );
 };

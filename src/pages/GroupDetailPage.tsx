@@ -7,6 +7,7 @@ import {
   IonFabList,
   IonHeader,
   IonIcon,
+  IonItem,
   IonPage,
   IonText,
   IonToolbar,
@@ -16,6 +17,8 @@ import { ellipsisVertical, trash, buildOutline } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import { RouteComponentProps } from "react-router";
 import db from "../firebase";
+import PlantDescription from "../components/PlantDescription";
+import PlantImg from "../components/PlantImg";
 interface ParamsId
   extends RouteComponentProps<{
     id: string;
@@ -25,6 +28,9 @@ const GroupDetailPage: React.FC<ParamsId> = ({ match }) => {
   const groupId: string = match.params.id;
   const [group, setModelValue] = useState<any>({
     name: "",
+    description: "",
+    date: "",
+    photoUrl: "",
   });
   /*
   //
@@ -43,8 +49,16 @@ const GroupDetailPage: React.FC<ParamsId> = ({ match }) => {
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
+        var date = docSnap.data().date.toDate().toLocaleString("en-GB", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+        });
         const group: any = {
           name: docSnap.data().peenraNimi,
+          description: docSnap.data().description,
+          date: date,
+          photoUrl: docSnap.data().photoUrl,
         };
         setModelValue(group);
       } else {
@@ -81,10 +95,17 @@ const GroupDetailPage: React.FC<ParamsId> = ({ match }) => {
           </IonButtons>
         </IonToolbar>
       </IonHeader>
-      <IonContent className="ion-padding">
-        <IonText>
-          <h1>{group.name}</h1>
-        </IonText>
+      <IonContent>
+        {/*  <PlantEntry plantId={plantId} /> */}
+        <IonItem>
+          <h2>{group.name}</h2>
+        </IonItem>
+        <IonItem>
+          <IonText>Rajatud: {group.date}</IonText>
+        </IonItem>
+        <PlantDescription description={group.description} />
+        <PlantImg photoUrl={group.photoUrl} />
+        {/* <EntryCard plantId={plantId} /> */}
       </IonContent>
     </IonPage>
   );
