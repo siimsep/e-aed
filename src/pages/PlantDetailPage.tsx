@@ -7,7 +7,6 @@ import {
   IonFabList,
   IonHeader,
   IonIcon,
-  IonImg,
   IonItem,
   IonPage,
   IonText,
