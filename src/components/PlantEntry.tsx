@@ -15,6 +15,8 @@ import {
   IonItem,
   IonLabel,
   IonTextarea,
+  IonToggle,
+  IonCheckbox,
 } from "@ionic/react";
 import { add } from "ionicons/icons";
 //import PlantForm from "./PlantForm";
@@ -23,6 +25,10 @@ import { useForm } from "react-hook-form";
 import db from "../firebase";
 interface ParamsId {
   plantId: string;
+}
+interface CheckboxChangeEventDetail<T = any> {
+  value: T;
+  checked: boolean;
 }
 const PlantEntry: React.FC<ParamsId> = ({ plantId }) => {
   const [date, setDate] = useState(new Date());
@@ -36,6 +42,7 @@ const PlantEntry: React.FC<ParamsId> = ({ plantId }) => {
       date: date.toISOString().substring(0, 10),
       content: "",
       plantId: plantId,
+      checked: false,
     },
   });
   const onSubmit = async (data: any) => {
@@ -78,14 +85,22 @@ const PlantEntry: React.FC<ParamsId> = ({ plantId }) => {
               <IonLabel position="floating">Sisu</IonLabel>
               <IonTextarea autoGrow={true} {...register("content", {})} />
             </IonItem>
-            <IonItem>
-              <IonLabel position="floating">Kuupäev</IonLabel>
+            <IonItem lines="none">
+              <IonLabel>Kuupäev</IonLabel>
               <IonInput
                 value={date.toISOString().substring(0, 10)}
                 type="date"
                 placeholder="none"
                 {...register("date", {})}
               />
+            </IonItem>
+            <IonItem lines="none">
+              <IonLabel slot="end">Lisa ka kalendrisse</IonLabel>
+              <IonCheckbox /* right now if checked-unchecked, it sends true */
+                value={true}
+                slot="end"
+                {...register("checked", {})}
+              ></IonCheckbox>
             </IonItem>
             <div>
               <IonButton type="submit" onClick={() => setIsOpen(false)}>

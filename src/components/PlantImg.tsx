@@ -7,8 +7,8 @@ const PlantImg: React.FC<PhotoUrl> = ({ photoUrl }) => {
   if (photoUrl !== "") {
     return (
       <>
-        <IonCard>
-          <IonImg alt="user uploaded" src={photoUrl}></IonImg>
+        <IonCard className="card">
+          <img alt="user uploaded" src={photoUrl} />
         </IonCard>
       </>
     );

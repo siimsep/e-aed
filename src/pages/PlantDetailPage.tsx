@@ -84,6 +84,7 @@ const PlantDetailPage: React.FC<ParamsId> = ({ match }) => {
         </IonFabButton>
         <IonFabList side="bottom">
           <IonFabButton
+            id="open-action-sheet"
             onClick={() => {
               DeletePlant(plantId);
               simpleNavigate();
