@@ -1,4 +1,4 @@
-import { IonCard, IonImg } from "@ionic/react";
+import { IonCard } from "@ionic/react";
 import React from "react";
 interface PhotoUrl {
   photoUrl: string;

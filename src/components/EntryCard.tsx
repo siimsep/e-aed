@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import db from "../firebase";
 import { collection, query, onSnapshot, where } from "firebase/firestore";
-import { IonList, IonCardContent, IonCard, IonContent } from "@ionic/react";
+import { IonList, IonCardContent, IonCard } from "@ionic/react";
 import { useEffect, useState } from "react";
 interface ParamsId {
   plantId: string;

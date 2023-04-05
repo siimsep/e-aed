@@ -50,6 +50,7 @@ function CalEntry(calDate: any) {
     try {
       data.date = calDate.calDate;
       const ref = await collection(db, "CalendarEntries"); // gets db reference
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const newEvent = await addDoc(ref, data); // saves entry in db
       reset(); // resets form
       presentToast("bottom"); // displays success message in the bottom
