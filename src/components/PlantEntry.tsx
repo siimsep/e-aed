@@ -33,10 +33,6 @@ interface CheckboxChangeEventDetail<T = any> {
 const PlantEntry: React.FC<ParamsId> = ({ plantId }) => {
   const [date, setDate] = useState(new Date());
   const [isOpen, setIsOpen] = useState(false);
-  /*const { takePhoto } = usePhotoGallery();
-    <IonFabButton onClick={() => takePhoto()}>
-        <IonIcon icon={camera}></IonIcon>
-      </IonFabButton> */
   const { handleSubmit, control, setValue, register, reset } = useForm({
     defaultValues: {
       date: date.toISOString().substring(0, 10),

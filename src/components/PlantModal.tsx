@@ -67,10 +67,8 @@ function PlantModal() {
   };
   const onSubmit = async (data: any) => {
     try {
-      //data.photoUrl = photoUrl;
       const tempt = new Date(data.date);
       data.date = tempt;
-
       const ref = await collection(db, "Plants");
       const newPlant = await addDoc(ref, data);
       reset();
