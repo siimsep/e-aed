@@ -19,14 +19,13 @@ import {
   useIonToast,
 } from "@ionic/react";
 import { add, camera } from "ionicons/icons";
-import { query, collection, getDocs, addDoc } from "firebase/firestore";
+import { query, collection, getDocs, addDoc, doc } from "firebase/firestore";
 import { useForm, Controller } from "react-hook-form";
 import db from "../firebase";
 import PhotoGallery from "../hooks/usePhotoGallery";
 function PlantModal() {
   const [date, setDate] = useState(new Date());
   const [isOpen, setIsOpen] = useState(false);
-  //const { takePhoto } = usePhotoGallery();
   const { handleSubmit, control, setValue, register, reset } = useForm({
     defaultValues: {
       name: "",
@@ -48,7 +47,7 @@ function PlantModal() {
   const [peenraNimed, setPeenrad] = useState<any[]>([]);
   useEffect(() => {
     const fetchPeenraNimiArray = async () => {
-      const q = query(collection(db, "Peenrad"));
+      const q = query(collection(db, "users", localStorage.uid, "Peenrad"));
       const querySnapshot = await getDocs(q);
       const dataArray = querySnapshot.docs.map((doc) => ({
         id: doc.id,
@@ -58,10 +57,8 @@ function PlantModal() {
     };
     fetchPeenraNimiArray();
   }, []);
-  //const [photoUrl, setPhotoUrl] = useState<string>();
   const handleButtonClick = async () => {
     const str: any = await PhotoGallery();
-    console.log("inside handlebuttonclick", str);
     // Set the value of the form input with the generated string
     setValue("photoUrl", str);
   };
@@ -69,8 +66,9 @@ function PlantModal() {
     try {
       const tempt = new Date(data.date);
       data.date = tempt;
-      const ref = await collection(db, "Plants");
-      const newPlant = await addDoc(ref, data);
+      const docRef = doc(db, "users", localStorage.uid);
+      const colRef = collection(docRef, "Plants");
+      const newGroup = await addDoc(colRef, data);
       reset();
       presentToast("bottom");
     } catch (error) {

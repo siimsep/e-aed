@@ -4,15 +4,11 @@ import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 import { defineCustomElements } from "@ionic/pwa-elements/loader";
-import firebaseConfig from "./firebaseConfig";
-import { FirebaseAppProvider } from "reactfire";
 const container = document.getElementById("root");
 const root = createRoot(container!);
 root.render(
   <React.StrictMode>
-    <FirebaseAppProvider firebaseConfig={firebaseConfig}>
-      <App />
-    </FirebaseAppProvider>
+    <App />
   </React.StrictMode>
 );
 

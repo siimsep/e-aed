@@ -17,7 +17,7 @@ import {
   useIonToast,
 } from "@ionic/react";
 import { add, camera } from "ionicons/icons";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, doc, setDoc } from "firebase/firestore";
 import { useForm } from "react-hook-form";
 import db from "../firebase";
 import PhotoGallery from "../hooks/usePhotoGallery";
@@ -50,8 +50,9 @@ function GroupModal() {
     try {
       const tempt = new Date(data.date);
       data.date = tempt;
-      const ref = await collection(db, "Peenrad");
-      const newPlant = await addDoc(ref, data);
+      const docRef = doc(db, "users", localStorage.uid);
+      const colRef = collection(docRef, "Peenrad");
+      const newGroup = await addDoc(colRef, data);
       reset();
       presentToast("bottom");
     } catch (error) {

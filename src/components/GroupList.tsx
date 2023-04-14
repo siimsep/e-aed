@@ -14,21 +14,22 @@ const GroupList = () => {
 
   useEffect(() => {
     const unsubscribe = onSnapshot(
-      query(collection(db, "Peenrad"), orderBy("peenraNimi")),
+      query(
+        collection(db, "users", localStorage.uid, "Peenrad"),
+        orderBy("peenraNimi")
+      ),
       (querySnapshot) => {
         const tempArray: any[] = [];
         querySnapshot.forEach((doc) => {
           const groupData = { id: doc.id, name: doc.data().peenraNimi };
           tempArray.push(groupData);
-          //const peenraNimi = doc.data().peenraNimi;
-          //tempArray.push(peenraNimi);
         });
         setGroupArray(tempArray);
       }
     );
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const unsubscribe2 = onSnapshot(
-      query(collection(db, "Plants")),
+      query(collection(db, "users", localStorage.uid, "Plants")),
       (querySnapshot) => {
         const tempArray: any[] = [];
         querySnapshot.forEach((doc) => {

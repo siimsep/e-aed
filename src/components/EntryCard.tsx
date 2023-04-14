@@ -14,7 +14,10 @@ interface Entry {
 const EntryCard: React.FC<ParamsId> = ({ plantId }) => {
   const [plantNameArray, setPlantArray] = useState<any[]>([]);
   useEffect(() => {
-    const q = query(collection(db, "Entries"), where("plantId", "==", plantId));
+    const q = query(
+      collection(db, "users", localStorage.uid, "Entries"),
+      where("plantId", "==", plantId)
+    );
     const unsub = onSnapshot(q, (querySnapshot) => {
       const tempArray: Entry[] = [];
       querySnapshot.forEach((doc) => {

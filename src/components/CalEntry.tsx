@@ -49,7 +49,12 @@ function CalEntry(calDate: any) {
   const onSubmit = async (data: any) => {
     try {
       data.date = calDate.calDate;
-      const ref = await collection(db, "CalendarEntries"); // gets db reference
+      const ref = await collection(
+        db,
+        "users",
+        localStorage.uid,
+        "CalendarEntries"
+      ); // gets db reference
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const newEvent = await addDoc(ref, data); // saves entry in db
       reset(); // resets form
@@ -66,7 +71,7 @@ function CalEntry(calDate: any) {
     }
     const unsubscribe = onSnapshot(
       query(
-        collection(db, "CalendarEntries"),
+        collection(db, "users", localStorage.uid, "CalendarEntries"),
         where("date", "==", calDate.calDate)
       ),
       (querySnapshot) => {

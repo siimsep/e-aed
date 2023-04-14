@@ -7,7 +7,10 @@ const PlantList = () => {
   const [plantNameArray, setPlantArray] = useState<any[]>([]);
   useEffect(() => {
     const unsubscribe = onSnapshot(
-      query(collection(db, "Plants"), orderBy("name")),
+      query(
+        collection(db, "users", localStorage.uid, "Plants"),
+        orderBy("name")
+      ),
       (querySnapshot) => {
         const tempArray: any[] = [];
         querySnapshot.forEach((doc) => {

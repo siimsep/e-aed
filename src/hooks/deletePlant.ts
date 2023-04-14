@@ -4,7 +4,7 @@ import db from "../firebase";
 async function DeletePlant(plantId: string) {
   if (true) {
     try {
-      await deleteDoc(doc(db, "Plants", plantId));
+      await deleteDoc(doc(db, "users", localStorage.uid, "Plants", plantId));
 
       console.log("deleted");
     } catch (error) {

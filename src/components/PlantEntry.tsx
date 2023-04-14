@@ -15,12 +15,10 @@ import {
   IonItem,
   IonLabel,
   IonTextarea,
-  IonToggle,
   IonCheckbox,
 } from "@ionic/react";
 import { add } from "ionicons/icons";
-//import PlantForm from "./PlantForm";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, doc } from "firebase/firestore";
 import { useForm } from "react-hook-form";
 import db from "../firebase";
 interface ParamsId {
@@ -45,8 +43,9 @@ const PlantEntry: React.FC<ParamsId> = ({ plantId }) => {
     try {
       const tempt = new Date(data.date);
       data.date = tempt;
-      const ref = await collection(db, "Entries");
-      const newPlantEntry = await addDoc(ref, data);
+      const docRef = doc(db, "users", localStorage.uid);
+      const colRef = collection(docRef, "Entries");
+      const newGroup = await addDoc(colRef, data);
       reset();
     } catch (error) {
       console.error("Error adding document: ", error);

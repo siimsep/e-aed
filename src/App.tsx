@@ -1,18 +1,6 @@
-import { Redirect, Route } from "react-router-dom";
-import {
-  IonApp,
-  IonIcon,
-  IonRouterOutlet,
-  IonTabBar,
-  IonTabButton,
-  IonTabs,
-  setupIonicReact,
-} from "@ionic/react";
+import { Route } from "react-router-dom";
+import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { calendarOutline, locationOutline, roseOutline } from "ionicons/icons";
-import Tab1 from "./pages/Tab1";
-import Tab2 from "./pages/Tab2";
-import Tab3 from "./pages/Tab3";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -32,43 +20,58 @@ import "@ionic/react/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
-import PlantDetailPage from "./pages/PlantDetailPage";
-import GroupDetailPage from "./pages/GroupDetailPage";
+import Login from "./pages/LogIn";
+import CreateAccount from "./pages/SignUp";
+import {
+  AuthProvider,
+  FirestoreProvider,
+  useFirebaseApp,
+  useSigninCheck,
+} from "reactfire";
+import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import React from "react";
+import MainTabs from "./mainTabs";
 
 setupIonicReact();
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonTabs>
-        <IonRouterOutlet>
-          <Route exact path="/tab1" component={Tab1} />
-          <Route path="/tab1/:id" component={PlantDetailPage} />
-          <Tab1 />
-          <Route exact path="/tab2" component={Tab2} />
-          <Route path="/tab2/:id" component={GroupDetailPage} />
-          <Tab2 />
-          <Route path="/tab3">
-            <Tab3 />
-          </Route>
-          <Route exact path="/">
-            <Redirect to="/tab1" />
-          </Route>
-        </IonRouterOutlet>
-        <IonTabBar slot="bottom">
-          <IonTabButton tab="tab1" href="/tab1">
-            <IonIcon aria-hidden="true" icon={roseOutline} />
-          </IonTabButton>
-          <IonTabButton tab="tab2" href="/tab2">
-            <IonIcon aria-hidden="true" icon={locationOutline} />
-          </IonTabButton>
-          <IonTabButton tab="tab3" href="/tab3">
-            <IonIcon aria-hidden="true" icon={calendarOutline} />
-          </IonTabButton>
-        </IonTabBar>
-      </IonTabs>
-    </IonReactRouter>
-  </IonApp>
-);
+const App: React.FC = () => {
+  const app = useFirebaseApp();
+  const firestoreDatabase = getFirestore(app);
+  const auth = getAuth(app);
 
+  return (
+    <IonApp>
+      <AuthProvider sdk={auth}>
+        <FirestoreProvider sdk={firestoreDatabase}>
+          <IonReactRouter>
+            <IonRouterOutlet>
+              <PrivateRoute></PrivateRoute>
+              <Route path="/login" component={Login} />
+              <Route path="/signup" component={CreateAccount} />
+            </IonRouterOutlet>
+          </IonReactRouter>
+        </FirestoreProvider>
+      </AuthProvider>
+    </IonApp>
+  );
+};
 export default App;
+
+// A wrapper for <Route> that redirects to the login
+// screen if you're not yet authenticated.
+export const PrivateRoute = ({
+  children,
+  location,
+  ...rest
+}: React.PropsWithChildren<any>) => {
+  const { status, data: signInCheckResult } = useSigninCheck();
+  if (status === "loading") {
+    return <span>loading...</span>;
+  }
+  if (signInCheckResult.signedIn === true) {
+    return <MainTabs />;
+  } else {
+    return <Login />;
+  }
+};

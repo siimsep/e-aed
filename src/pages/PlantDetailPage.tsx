@@ -52,7 +52,7 @@ const PlantDetailPage: React.FC<ParamsId> = ({ match }) => {
   //
   useEffect(() => {
     const fetchPlant = async () => {
-      const docRef = doc(db, "/Plants", plantId);
+      const docRef = doc(db, "users", localStorage.uid, "Plants", plantId);
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
