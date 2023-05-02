@@ -45,7 +45,7 @@ const GroupDetailPage: React.FC<ParamsId> = ({ match }) => {
   */
   useEffect(() => {
     const fetchGroup = async () => {
-      const docRef = doc(db, "/Peenrad", groupId);
+      const docRef = doc(db, "users", localStorage.uid, "Peenrad", groupId);
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
@@ -64,6 +64,7 @@ const GroupDetailPage: React.FC<ParamsId> = ({ match }) => {
       } else {
         // doc.data() will be undefined in this case
         console.log("No such document!");
+        // maybe make toast as alert for user
       }
     };
     fetchGroup();

@@ -251,3 +251,6 @@ http://ionicframework.com/docs/theming/ */
   --max-height: 30%;
   --max-width: 90%;
 }
+#login-input {
+  width: 100%;
+}

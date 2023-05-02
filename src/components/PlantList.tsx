@@ -4,7 +4,7 @@ import { IonList, IonItem, IonSearchbar, IonToolbar } from "@ionic/react";
 import { useEffect, useState } from "react";
 
 const PlantList = () => {
-  const [plantNameArray, setPlantArray] = useState<any[]>([]);
+  const [plantArray, setPlantArray] = useState<any[]>([]);
   useEffect(() => {
     const unsubscribe = onSnapshot(
       query(
@@ -33,7 +33,7 @@ const PlantList = () => {
         ></IonSearchbar>
       </IonToolbar>
       <IonList>
-        {plantNameArray.map((item) => (
+        {plantArray.map((item) => (
           <IonItem href={`/tab1/${item.id}`} key={item.name}>
             {item.name}
           </IonItem>

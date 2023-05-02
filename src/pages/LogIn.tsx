@@ -4,15 +4,16 @@ import { useState } from "react";
 import {
   IonButton,
   IonContent,
-  IonHeader,
+  IonGrid,
+  IonImg,
   IonInput,
   IonItem,
   IonPage,
-  IonTitle,
-  IonToolbar,
+  IonRow,
   useIonAlert,
 } from "@ionic/react";
 import { useHistory } from "react-router";
+import TAIMI from "../assets/img/TAIMI.png";
 
 const Login: React.FC = () => {
   const history = useHistory();
@@ -48,33 +49,41 @@ const Login: React.FC = () => {
 
   return (
     <IonPage id="login-page">
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Logi sisse</IonTitle>
-        </IonToolbar>
-      </IonHeader>
       <IonContent fullscreen className="ion-padding">
-        <IonItem>
-          <IonInput
-            value={email}
-            placeholder="Sisesta e-mail"
-            onIonChange={(e) => setEmail(e.detail.value!)}
-          ></IonInput>
-        </IonItem>
-        <IonItem>
-          <IonInput
-            value={password}
-            type="password"
-            placeholder="Sisesta parool"
-            onIonChange={(e) => setPassword(e.detail.value!)}
-          ></IonInput>
-        </IonItem>
-        <IonButton onClick={() => SignIn()}>Logi sisse</IonButton>
-        <br />
-        <br />
-        <IonButton color="secondary" routerLink="/signup">
-          Või registreeri uus kasutaja
-        </IonButton>
+        <IonGrid>
+          <IonRow className="ion-justify-content-center">
+            <IonImg src={TAIMI} alt="logo" />
+          </IonRow>
+          <IonRow className="ion-justify-content-center">
+            <IonItem id="login-input">
+              <IonInput
+                value={email}
+                placeholder="Sisesta e-mail"
+                onIonChange={(e) => setEmail(e.detail.value!)}
+              ></IonInput>
+            </IonItem>
+          </IonRow>
+          <IonRow className="ion-justify-content-center">
+            <IonItem id="login-input">
+              <IonInput
+                value={password}
+                type="password"
+                placeholder="Sisesta parool"
+                onIonChange={(e) => setPassword(e.detail.value!)}
+              ></IonInput>
+            </IonItem>
+          </IonRow>
+          <br />
+          <IonRow className="ion-justify-content-center">
+            <IonButton onClick={() => SignIn()}>Logi sisse</IonButton>
+          </IonRow>
+          <br />
+          <IonRow className="ion-justify-content-center">
+            <IonButton id="login-input" color="light" routerLink="/signup">
+              Või registreeri uus kasutaja
+            </IonButton>
+          </IonRow>
+        </IonGrid>
       </IonContent>
     </IonPage>
   );
