@@ -76,7 +76,7 @@ function PlantModal() {
     }
   };
   return (
-    <IonContent className="ion-padding">
+    <>
       <IonFab slot="fixed" vertical="bottom" horizontal="start">
         <IonFabButton onClick={() => setIsOpen(true)}>
           <IonIcon icon={add}></IonIcon>
@@ -98,61 +98,59 @@ function PlantModal() {
             </IonButtons>
           </IonToolbar>
         </IonHeader>
-        <IonContent className="ion-padding">
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <IonItem>
-              <IonLabel position="floating">Nimi</IonLabel>
-              <IonInput
-                {...register("name", {
-                  required: "Sisesta midagi",
-                })}
-              />
-            </IonItem>
-            <IonFabButton size="small" onClick={() => handleButtonClick()}>
-              <IonIcon icon={camera}></IonIcon>
-            </IonFabButton>
-            <IonItem>
-              <IonLabel position="floating">Lisainfo</IonLabel>
-              <IonInput {...register("description", {})} />
-            </IonItem>
-            <IonItem>
-              <IonLabel position="floating">Istutamise kuupäev</IonLabel>
-              <IonInput
-                value={date.toISOString().substring(0, 10)}
-                type="date"
-                placeholder="none"
-                {...register("date", {})}
-              />
-            </IonItem>
-            <IonItem>
-              <Controller
-                render={({ field }) => (
-                  <IonSelect
-                    interface="popover"
-                    placeholder="Vali peenar"
-                    value={field.value}
-                    onIonChange={(e) => setValue("peenar", e.detail.value)}
-                  >
-                    {peenraNimed.map((peenar) => (
-                      <IonSelectOption key={peenar.id} value={peenar.id}>
-                        {peenar.peenraNimi}
-                      </IonSelectOption>
-                    ))}
-                  </IonSelect>
-                )}
-                control={control}
-                name="peenar"
-              />
-            </IonItem>
-            <div>
-              <IonButton type="submit" onClick={() => setIsOpen(false)}>
-                Salvesta
-              </IonButton>
-            </div>
-          </form>
-        </IonContent>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <IonItem>
+            <IonLabel position="floating">Nimi</IonLabel>
+            <IonInput
+              {...register("name", {
+                required: "Sisesta midagi",
+              })}
+            />
+          </IonItem>
+          <IonFabButton size="small" onClick={() => handleButtonClick()}>
+            <IonIcon icon={camera}></IonIcon>
+          </IonFabButton>
+          <IonItem>
+            <IonLabel position="floating">Lisainfo</IonLabel>
+            <IonInput {...register("description", {})} />
+          </IonItem>
+          <IonItem>
+            <IonLabel position="floating">Istutamise kuupäev</IonLabel>
+            <IonInput
+              value={date.toISOString().substring(0, 10)}
+              type="date"
+              placeholder="none"
+              {...register("date", {})}
+            />
+          </IonItem>
+          <IonItem>
+            <Controller
+              render={({ field }) => (
+                <IonSelect
+                  interface="popover"
+                  placeholder="Vali peenar"
+                  value={field.value}
+                  onIonChange={(e) => setValue("peenar", e.detail.value)}
+                >
+                  {peenraNimed.map((peenar) => (
+                    <IonSelectOption key={peenar.id} value={peenar.id}>
+                      {peenar.peenraNimi}
+                    </IonSelectOption>
+                  ))}
+                </IonSelect>
+              )}
+              control={control}
+              name="peenar"
+            />
+          </IonItem>
+          <div>
+            <IonButton type="submit" onClick={() => setIsOpen(false)}>
+              Salvesta
+            </IonButton>
+          </div>
+        </form>
       </IonModal>
-    </IonContent>
+    </>
   );
 }
 

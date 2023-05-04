@@ -1,6 +1,5 @@
 import { IonHeader, IonPage, IonTitle, IonToolbar } from "@ionic/react";
 import PlantList from "../components/PlantList";
-import PlantModal from "../components/PlantModal";
 import "./Tab1.css";
 
 const Tab1: React.FC = () => {
@@ -17,7 +16,6 @@ const Tab1: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <PlantList />
-      <PlantModal />
     </IonPage>
   );
 };
