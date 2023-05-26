@@ -1,3 +1,7 @@
+https://91pjaj0dk3.appflowapp.com/
+
+^ hetkel töötav link. Appflow link kehtib 7 päeva. 
+
 - Ionic React
 - Firebase Firestore  
   in progress
